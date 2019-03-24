@@ -35,13 +35,17 @@ export class NowPlaying extends Component {
   getNowPlaying(){
     spotifyApi.getMyCurrentPlaybackState()
       .then((response) => {
+        //console.log(typeof(response));
+        //console.log(response);
+        if(response != ""){     //Keeps app from crashing if spotify's closed on device
         this.setState({
           nowPlaying: { 
               name: response.item.name, 
               albumArt: response.item.album.images[0].url
             }
         });
-      })
+      }
+    })
   }
 
   // state = { username: "", fname: "", lname: "", wins: "", lost: "" };

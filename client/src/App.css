@@ -31,3 +31,20 @@
 div, button {
   margin: 10px;
 }
+
+#playerSpace {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  
+  left: 0;
+  background: #282c28;
+}
+
+#queueSpace {
+  width: 50%;
+  
+  position: fixed;
+  top: 0;
+  right: 0;
+}

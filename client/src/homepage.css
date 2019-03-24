@@ -1,31 +1,43 @@
-.webpage{
-    z-index: 0;
-    size: 100% 100% 100% 100%;
-    background-color: #fafffd;
+* {
+  box-sizing: border-box;
 }
 
-.titlebar{
-    vertical-align: top;
-    z-index: 1;
-    position: 0 0 0 0;
-    height: 10%;
-    background-color: #d05022;
-    border: 5 5 5 5;
-    border-color: #000000;
+body {
+  font-family: Arial;
+  padding: 10px;
+  background: #f1f1f1;
 }
 
-.icon{
-    z-index: 2;
+/* Header/Blog Title */
+.header {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  background: #d05022;
 }
 
-.body{
-    z-index: 1;
+.header h1 {
+    color: white;
+    font-size: 35px;
 }
 
-.formfill{
-    z-index: 2;
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.form_center {   
+  width: 50%;
+  float: center;
 }
 
-.formfill_title .formfill_entry_forms .formfill_button{
-    z-index: 3;
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
 }

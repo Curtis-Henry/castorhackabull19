@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import axios from 'axios';
+
 //import logo from './logo.svg';
 
 import './App.css';
@@ -8,17 +11,27 @@ const spotifyApi = new SpotifyWebApi();
 
 export class NowPlaying extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     const params = this.getHashParams();
-    const token = params.access_token;
-    if (token) {
-      spotifyApi.setAccessToken(token);
+    this.token = params.access_token;
+    if (this.token) {
+      spotifyApi.setAccessToken(this.token);
+      this.api =  axios.create({
+        baseURL: 'https://api.spotify.com/v1',
+        timeout: 15000,
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      });
     }
+
     this.state = {
-      loggedIn: token ? true : false,
+      loggedIn: this.token ? true : false,
       nowPlaying: { name: 'Not Checked', albumArt: '' }
     }
+
+    this.addNewUser();
   }
   getHashParams() {
     var hashParams = {};
@@ -32,7 +45,37 @@ export class NowPlaying extends Component {
     return hashParams;
   }
 
+  addNewUser = async (id) => {
+    console.log('xd');
+    try {
+      const user = await this.api.get(`/me`);
+
+      var users = localStorage.getItem(users);
+
+      if(users === null)
+      {users = '';}
+
+      var userObj = {
+        id: user.data['display_name'],
+        token: this.token
+      };
+
+      userObj = JSON.stringify(userObj);
+
+      
+      users += userObj;
+      console.log(userObj);
+      
+
+      localStorage.setItem('users',users);
+
+    } catch (err){
+      console.log('somethin bad happened', err);
+    }
+  }
+
   getNowPlaying(){
+    // this.addNewUser();
     spotifyApi.getMyCurrentPlaybackState()
       .then((response) => {
         //console.log(typeof(response));
@@ -61,11 +104,11 @@ export class NowPlaying extends Component {
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }}/>
         </div>
-        { this.state.loggedIn &&
-          <button onClick={() => this.getNowPlaying()}>
+        {/* { this.state.loggedIn &&
+          <button onClick={() => this.addNewUser()}>
             Check Now Playing
           </button>
-        }
+        } */}
       </div>
 
     );

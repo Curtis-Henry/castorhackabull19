@@ -29,6 +29,7 @@ export class NowPlaying extends Component {
        hashParams[e[1]] = decodeURIComponent(e[2]);
        e = r.exec(q);
     }
+    
     return hashParams;
   }
 

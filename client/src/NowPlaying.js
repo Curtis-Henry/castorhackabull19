@@ -53,7 +53,7 @@ export class NowPlaying extends Component {
     //   const { NowPlaying} = this.props;
     return (
       
-      <div className="App">
+      <div className="queueSpace">
         <a href='http://localhost:8888' > Login to Spotify </a>
         <div>
           Now Playing: { this.state.nowPlaying.name }

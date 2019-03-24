@@ -7,7 +7,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
 export class PlayQueue extends Component {
-  
+
   constructor(props){
     super(props);
     const params = this.getHashParams();
@@ -25,10 +25,10 @@ export class PlayQueue extends Component {
     this.state = {
       loggedIn: this.token ? true : false,
       playQueue: { name: 'Not Checked', albumArt: '' },
-      track: "no song"
-    } 
-
-  
+      track: "no song",
+      href: "no ref",
+      embedCode: "https://open.spotify.com/embed/track/3uYDO9dPLTVrgfwg7EYXSf"
+    }
   }
   
   getHashParams() {
@@ -44,12 +44,21 @@ export class PlayQueue extends Component {
   }
 
   testFunc = async (id) => {
-    console.log('xd');
     try {
       const song = await this.api.get(`/tracks/${id}`);
-      console.log(song)
+      console.log(song.data)
 
       const {name: track} = song.data;
+      const {href: href} = song.data;
+      
+      //Create embed link
+      var trackID = href.substring(34, href.length);
+      var embedURL = "https://open.spotify.com/embed/track/";
+
+      this.state.embedCode = embedURL.concat(trackID);
+      
+      console.log(this.state.embedCode)
+
       this.setState({track});
     } catch (err){
       console.log('somethin bad happened', err);
@@ -61,16 +70,16 @@ export class PlayQueue extends Component {
     //   const { PlayQueue} = this.props;
     return (
       
-      <div className="App">
+      <div className="playerSpace">
         { this.state.loggedIn &&
           <button onClick={() => this.testFunc('3n3Ppam7vgaVa1iaRUc9Lp')}>
-            Now Playing: { this.state.track }
+            Play Queue: { this.state.track }
           </button>
-          
         }
-
+        <div>
+          <iframe src = { this.state.embedCode } width="50%" height="500" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
       </div>
-
     );
   }
 }

@@ -9,9 +9,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <NowPlaying NowPlaying={NowPlaying} />
-        <PlayQueue PlayQueue={PlayQueue} />
+      <div>
+        <div className="queueSpace">
+          <NowPlaying NowPlaying={NowPlaying} />
+        </div>
+        <div className="playerSpace">
+          <PlayQueue PlayQueue={PlayQueue} />
+        </div>
       </div>
     );
   }

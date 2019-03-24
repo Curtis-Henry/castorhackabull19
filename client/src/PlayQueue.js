@@ -70,7 +70,7 @@ export class PlayQueue extends Component {
     //   const { PlayQueue} = this.props;
     return (
       
-      <div className="App">
+      <div className="playerSpace">
         { this.state.loggedIn &&
           <button onClick={() => this.testFunc('3n3Ppam7vgaVa1iaRUc9Lp')}>
             Play Queue: { this.state.track }
